@@ -12,7 +12,7 @@ type Resource struct {
 }
 
 func openConnection() *Resource {
-	db, _ := sql.Open("mysql", "hackathon:hackathon@/api");
+	db, _ := sql.Open("mysql", "hackathon@/api");
 	dbmap := &gorp.DbMap{Db: db, Dialect: gorp.MySQLDialect{Engine: "InnoDB", Encoding: "UTF8"}}
 	return &Resource{Map: dbmap}
 }
