@@ -57,6 +57,8 @@ angular.module('ionicApp', ['ionic'])
   })
   .controller('resultsController', function ($scope, $http, propertiesService) {
     $scope.service = propertiesService;
+    $scope.temp = propertiesService.temp;
+    $scope.properties = $scope.service.properties;
 
     $scope.properties.color = $scope.temp.race === 'black' ? 0 : ($scope.temp.race === 'white' ? 1 : 2);
 
