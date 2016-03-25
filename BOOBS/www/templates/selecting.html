@@ -1,0 +1,14 @@
+<ion-view view-title='WAIT'>
+  <ion-nav-buttons side="right">
+    <a class="button button-icon icon-right ion-chevron-right" href="#/results" ng-click="send()">Send</a>
+  </ion-nav-buttons>
+  <ion-content overflow-scroll="true" padding="true" class="has-header">
+    <form class="list">
+      <ion-item class="range range-positive">BOOTIES
+        <input type="range" ng-model="value" ng-change="setValue(value)">
+      </ion-item>
+    </form>
+    <h3>{{value}}</h3>
+  </ion-content>
+</ion-view>
+
