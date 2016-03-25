@@ -1,12 +1,12 @@
-drop table if exists country ;
+drop table if exists countries ;
 
-create table country (
-	 id int primary key
-	,nm varchar(128) not null
+create table countries (
+	id int primary key,
+	name varchar(128) not null
 );
 
-insert into country
-  (id, nm)
+insert into countries
+  (id, name)
 values
   (0, 'Papua New Guinea'),
   (1, 'Cambodia'),

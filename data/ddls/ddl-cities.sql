@@ -1,22 +1,22 @@
-drop table if exists city ;
+drop table if exists cities;
 
-create table city (
-   countryId smallint
-  ,id smallint primary key
-  ,height smallint
-  ,latitude float
-  ,longitude float
-  ,name varchar(128)
-  ,color smallint
-  ,boobies smallint
-  ,waist smallint
-  ,butt smallint
-  ,salary smallint
-  ,religion smallint
-  ,sex_age smallint
+create table cities (
+	countryId smallint,
+	id smallint primary key,
+	height smallint,
+	latitude float,
+	longitude float,
+	name varchar(128),
+	color smallint,
+	boobies smallint,
+	waist smallint,
+	butt smallint,
+	salary smallint,
+	religion smallint,
+	sex_age smallint
 );
 
-insert into city
+insert into cities
   (id, name, latitude, longitude, countryId, color, height, boobies, waist, butt, salary, religion, sex_age)
 values
   (0, 'Goroka', -6.081689, 145.39188, 0, 3, 166, 1, 108, 1, 1, 5, 15),
