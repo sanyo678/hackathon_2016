@@ -7,7 +7,7 @@ angular.module('ionicApp', ['ionic'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
-    
+
   });
 }).config(function ($stateProvider, $urlRouterProvider) {
   $stateProvider
@@ -19,16 +19,56 @@ angular.module('ionicApp', ['ionic'])
     .state('results', {
       url: '/results',
       templateUrl: 'templates/results.html',
-      controller: 'selectingController'
+      controller: 'resultsController'
     });
   $urlRouterProvider.otherwise('/selecting');
   })
-  .controller('selectingController', function ($scope) {
-    $scope.data = 'ASDASDS';
-    $scope.send = function () {
+  .service('propertiesService', function () {
+    var properties = {
+      color: null,
+      height: null,
+      boobies: null,
+      waist: null,
+      butt: null,
+      salary: null,
+      religion: null,
+      sexAge: null
+    };
 
+    var temp = {
+      race: 'black'
     }
-    $scope.setValue = function (value) {
-      $scope.value = value;
+
+    return {
+      properties: properties,
+      temp: temp
+    };
+
+  })
+  .controller('selectingController', function ($scope, propertiesService) {
+    $scope.service = propertiesService;
+    $scope.temp = propertiesService.temp;
+    $scope.properties = $scope.service.properties;
+
+
+    $scope.setHeight = function (height) {
+      propertiesService.properties.height = height;
     }
   })
+  .controller('resultsController', function ($scope, $http, propertiesService) {
+    $scope.service = propertiesService;
+
+    $scope.properties.color = $scope.temp.race === 'black' ? 0 : ($scope.temp.race === 'white' ? 1 : 2);
+
+    $http({
+      method: 'GET',
+      url: 'http://localhost:8080/api/v1/cities?' + Object.keys($scope.service.properties).map(function (key) {
+        return key.toString() + '=' + $scope.service.properties[key];
+      }).join('&')
+    }).then(function (response) {
+      $scope.service.cities = response.data;
+    }, function (response) {
+      console.log('IDINAHYIPROSTOBLAT' + response.statusText);
+    });
+  })
+

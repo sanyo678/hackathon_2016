@@ -1,14 +1,30 @@
-<ion-view view-title='WAIT'>
+<ion-view view-title={{properties.height}}>
   <ion-nav-buttons side="right">
     <a class="button button-icon icon-right ion-chevron-right" href="#/results" ng-click="send()">Send</a>
   </ion-nav-buttons>
   <ion-content overflow-scroll="true" padding="true" class="has-header">
     <form class="list">
-      <ion-item class="range range-positive">BOOTIES
-        <input type="range" ng-model="value" ng-change="setValue(value)">
+      <label class="item item-select">
+        <span class="input-label">Race</span>
+        <select ng-model="temp.race">
+          <option value="black">Black</option>
+          <option value="white">White</option>
+          <option value="yellow">Yellow</option>
+        </select>
+      </label>
+      <ion-item class="range range-positive">Height
+        <input type="range" ng-model="height" ng-change="setHeight(height)" min="150" max="190">
       </ion-item>
     </form>
-    <h3>{{value}}</h3>
+    <div style="line-height: 250px; background-color: rgb(255, 255, 255); text-align: center;">
+      <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
+    </div>
+    <div style="line-height: 250px; background-color: rgb(255, 255, 255); text-align: center;">
+      <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
+    </div>
+    <div style="line-height: 250px; background-color: rgb(255, 255, 255); text-align: center;">
+      <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
+    </div>
   </ion-content>
 </ion-view>
 
