@@ -1,3 +1,5 @@
+drop table if exists city ;
+
 create table city (
    countryId smallint
   ,id smallint primary key

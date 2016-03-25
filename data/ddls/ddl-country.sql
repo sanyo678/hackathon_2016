@@ -1,3 +1,5 @@
+drop table if exists country ;
+
 create table country (
 	 id int primary key
 	,nm varchar(128) not null
