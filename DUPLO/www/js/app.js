@@ -53,9 +53,11 @@ angular.module('ionicApp', ['ionic'])
     };
   })
   .controller('selectingController', function ($scope, propertiesService) {
-    $scope.service = propertiesService;
-    $scope.common = $scope.service.common;
-    $scope.properties = $scope.service.properties;
+    $scope.$on('$ionicView.enter', function() {
+      $scope.service = propertiesService;
+      $scope.common = $scope.service.common;
+      $scope.properties = $scope.service.properties;
+    });
 
     $scope.changeHeight = function (height) {
       $scope.properties.height = height;
@@ -75,19 +77,21 @@ angular.module('ionicApp', ['ionic'])
 
   })
   .controller('resultsController', function ($scope, $http, propertiesService) {
-    $scope.service = propertiesService;
-    $scope.common = $scope.service.common;
-    $scope.properties = $scope.service.properties;
+    $scope.$on('$ionicView.enter', function() {
+      $scope.service = propertiesService;
+      $scope.common = $scope.service.common;
+      $scope.properties = $scope.service.properties;
 
-    $scope.properties.color = $scope.common.race === 'black' ? 0 : ($scope.common.race === 'white' ? 1 : 2);
+      $scope.properties.color = $scope.common.race === 'black' ? 0 : ($scope.common.race === 'white' ? 1 : 2);
 
-    $scope.resultsReady = false;
+      $scope.resultsReady = false;
+    });
 
     $scope.goToMap = function (item) {
       $scope.common.name = item.name;
       $scope.common.latitude = item.latitude;
       $scope.common.longitude = item.longitude;
-    }
+    };
 
     $http({
       method: 'GET',
@@ -106,39 +110,41 @@ angular.module('ionicApp', ['ionic'])
     });
   })
   .controller('mapController', function ($scope, $compile, propertiesService) {
-    $scope.service = propertiesService;
-    $scope.common = $scope.service.common;
+    $scope.$on('$ionicView.enter', function() {
+      $scope.service = propertiesService;
+      $scope.common = $scope.service.common;
+
+      var myLatlng = new google.maps.LatLng($scope.common.latitude, $scope.common.longitude);
+
+      var mapOptions = {
+        center: myLatlng,
+        zoom: 16,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+
+      var map = new google.maps.Map(document.getElementById("map"),
+        mapOptions);
 
 
-    var myLatlng = new google.maps.LatLng($scope.common.latitude, $scope.common.longitude);
+      var contentString = "<div><a ng-click='clickTest()'>" + $scope.common.name + "</a></div>";
+      var compiled = $compile(contentString)($scope);
 
-    var mapOptions = {
-      center: myLatlng,
-      zoom: 16,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
+      var infowindow = new google.maps.InfoWindow({
+        content: compiled[0]
+      });
 
-    var map = new google.maps.Map(document.getElementById("map"),
-      mapOptions);
+      var marker = new google.maps.Marker({
+        position: myLatlng,
+        map: map,
+        title: $scope.common.name
+      });
 
+      google.maps.event.addListener(marker, 'click', function() {
+        infowindow.open(map, marker);
+      });
 
-    var contentString = "<div><a ng-click='clickTest()'>" + $scope.common.name + "</a></div>";
-    var compiled = $compile(contentString)($scope);
-
-    var infowindow = new google.maps.InfoWindow({
-      content: compiled[0]
+      $scope.map = map;
     });
 
-    var marker = new google.maps.Marker({
-      position: myLatlng,
-      map: map,
-      title: $scope.common.name
-    });
-
-    google.maps.event.addListener(marker, 'click', function() {
-      infowindow.open(map, marker);
-    });
-
-    $scope.map = map;
 
   })
