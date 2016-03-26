@@ -1,4 +1,4 @@
-<ion-view view-title="SELECTING">
+<ion-view view-title="{{common.race}}">
   <ion-nav-buttons side="right">
     <a class="button button-icon icon-right ion-chevron-right" href="#/results">Send</a>
   </ion-nav-buttons>
@@ -6,25 +6,26 @@
   <form class="list">
     <label class="item item-select">
       <span class="input-label">Race</span>
-      <select ng-model="temp.race">
-        <option value="black">Black</option>
+      <select ng-model="common.race">
         <option value="white">White</option>
+        <option value="black">Black</option>
         <option value="yellow">Yellow</option>
       </select>
     </label>
     <ion-item class="range range-positive">Height
-      <input type="range" ng-model="height" ng-change="setHeight(height)" min="150" max="190">
+      <input type="range" ng-model="height" ng-change="changeHeight(height)" min="150" max="190">
+      {{properties.height}}
     </ion-item>
   </form>
   <div style="position:relative; top: 20%; transform: scale(0.75)">
   <div style="position: absolute; left: 50%; transform: translate(-50%, -50%)">
     <img style="position: absolute;" ng-src="img/main.jpg"></img>
     <div>
-      <img style="position: relative; top: 140px" ng-src="img/boobs_2.png"></img>
+      <img style="position: relative; top: 140px" ng-src={{common.boobs[properties.boobies]}} ng-click="changeBoobs()"></img>
       <div>
-        <img style="position: relative; top: 141px" ng-src="img/waist_2.png"></img>
+        <img style="position: relative; top: 141px" ng-src={{common.waists[properties.waist]}} ng-click="changeWaist()"></img>
         <div>
-          <img style="position: relative; top: 150px" ng-src="img/bat_2.jpg"></img>
+          <img style="position: relative; top: 150px" ng-src={{common.bats[properties.butt]}} ng-click="changeBat()"></img>
         </div>
       </div>
     </div>

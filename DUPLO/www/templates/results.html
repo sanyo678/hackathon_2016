@@ -1,3 +1,20 @@
 <ion-view view-title="RESULTS">
-  {{common.results}}
+  <ion-content overflow-scroll="true" padding="true" class="has-header">
+    <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%); transform: scale(6)">
+      <ion-spinner style="position:relative" icon="ripple" class="spinner-assertive" ng-show="!resultsReady"></ion-spinner>
+    </div>
+    <div ng-show="resultsReady">
+
+      <ion-list show-delete="data.showDelete" show-reorder="data.showReorder">
+
+        <ion-item ng-repeat="item in common.results"
+                  item="item"
+                  href="#/item/{{item.id}}" class="item-remove-animate">
+          {{item.name}} {{ common.result }}
+        </ion-item>
+
+      </ion-list>
+
+    </div>
+    </ion-content>
 </ion-view>
