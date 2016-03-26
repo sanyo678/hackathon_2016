@@ -33,7 +33,6 @@ func main() {
 	v1 := router.Group("api/v1/")
 	{
 		v1.GET("cities", resource.cities)
-		v1.GET("countries", resource.countries)
 	}
 
 	if (*https) {

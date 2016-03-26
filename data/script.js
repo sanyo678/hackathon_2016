@@ -13,14 +13,11 @@ function getRandomInt(min, max)
 //3 - asian
 let newCities = jsonContent.cities.map( city => {
 	city.properties = {
-		color: getRandomInt(1, 3),
+		color: getRandomInt(0, 2),
 		height: getRandomInt(150, 190),
-		boobies:  getRandomInt(1, 5), //размер груди
-		waist:  getRandomInt(50, 130), //талии
-		butt: getRandomInt(1, 5), //попа
-		salary: getRandomInt(1, 5), //нищая_бедная
-		religion: getRandomInt(1, 5), //религиозность
-		sex_age: getRandomInt(14, 21) //возраст согласия
+		boobies:  getRandomInt(0, 2), //размер груди
+		waist:  getRandomInt(0, 2), //талии
+		butt: getRandomInt(0, 2), //попа
 	};
 	return city;
 })
