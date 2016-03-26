@@ -32,7 +32,7 @@ angular.module('ionicApp', ['ionic'])
     var properties = {
       color: null,
       height: 170,
-      boobies: 0,
+      boobies: 1,
       waist: 0,
       butt: 0,
       // salary: null,

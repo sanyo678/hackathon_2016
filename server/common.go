@@ -40,8 +40,8 @@ func (db *Resource) cities(context *gin.Context) {
 
 	if _, err := db.Map.Select(
 		&cities,
-		"select countryId, cities.id, height, latitude, longitude, cities.name, color, boobies, waist, butt, countries.name as cname from cities join countries on cities.countryId = countries.id where color = ? and boobies = ? and butt = ? and waist = ? and height >= ?",
-		color, boobies, butt, waist , height - 10); err == nil {
+		"select countryId, cities.id, height, latitude, longitude, cities.name, color, boobies, waist, butt, countries.name as cname from cities join countries on cities.countryId = countries.id where color = ? and boobies = ? and butt = ? and waist = ? and height >= ? and height <= ?",
+		color, boobies, butt, waist , height - 10, height + 10); err == nil {
 		context.JSON(200, gin.H{"code": 0, "response": cities})
 	} else {
 		context.JSON(200, gin.H{"code": 1, "error": err})

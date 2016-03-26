@@ -155,7 +155,7 @@ values
   (144, 'Turkey'),
   (145, 'Belgium'),
   (146, 'Taiwan'),
-  (147, 'PerГђвЂњГ‘вЂќ'),
+  (147, 'Peru'),
   (148, 'South Africa'),
   (149, 'Trinidad and Tobago'),
   (150, 'Bermuda'),

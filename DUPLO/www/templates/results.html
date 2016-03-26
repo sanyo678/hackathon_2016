@@ -1,4 +1,7 @@
-<ion-view view-title="RESULTS">
+<ion-view view-title="Search results">
+  <ion-nav-buttons side="left">
+    <a class="button button-icon icon-left ion-chevron-left" href="#/selecting">Back</a>
+  </ion-nav-buttons>
   <ion-content overflow-scroll="true" padding="true" class="has-header">
     <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%); transform: scale(6)">
       <ion-spinner style="position:relative" icon="ripple" class="spinner-assertive" ng-show="!resultsReady"></ion-spinner>
@@ -10,7 +13,7 @@
         <ion-item ng-repeat="item in common.results"
                   item="item"
                   href="#/map" class="item-remove-animate" ng-click="goToMap(item)">
-          {{item.name}}
+          <b>{{item.country}}</b> / {{item.name}}
         </ion-item>
 
       </ion-list>
