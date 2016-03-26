@@ -1,0 +1,34 @@
+<ion-view view-title={{properties.height}}>
+  <ion-nav-buttons side="right">
+    <a class="button button-icon icon-right ion-chevron-right" href="#/results" ng-click="send()">Send</a>
+  </ion-nav-buttons>
+  <ion-content overflow-scroll="true" padding="true" class="has-header">
+    <form class="list">
+      <label class="item item-select">
+        <span class="input-label">Race</span>
+        <select ng-model="temp.race">
+          <option value="black">Black</option>
+          <option value="white">White</option>
+          <option value="yellow">Yellow</option>
+        </select>
+      </label>
+      <ion-item class="range range-positive">Height
+        <input type="range" ng-model="height" ng-change="setHeight(height)" min="150" max="190">
+      </ion-item>
+    </form>
+    </div>
+    <div style="text-align: center;">
+      <img style="position: absolute;" ng-src="img/main.jpg"></img>
+      <div style="text-align: center;">
+        <img style="position: relative; top: 140px; left: 83px" ng-src="img/boobs_1.png"></img>
+        <div style="text-align: center;">
+          <img style="position: relative; top: 141px; left: 83px" ng-src="img/waist_3.png"></img>
+          <div style="text-align: center;">
+            <img style="position: relative; top: 150px; left: 83px" ng-src="img/bat_3.jpg"></img>
+          </div>
+        </div>
+      </div>
+      </div>
+  </ion-content>
+</ion-view>
+

@@ -28,6 +28,9 @@ type City struct {
 }
 
 func (db *Resource) cities(context *gin.Context) {
+	context.Header("Access-Control-Allow-Headers", "Content-Type")
+	context.Header("Access-Control-Allow-Methods", "GET")
+	context.Header("Access-Control-Allow-Origin", "*")
 	var cities []City
 	if _, err := db.Map.Select(&cities, "select * from cities"); err == nil {
 		context.JSON(200, gin.H{"code": 0, "response": cities})
@@ -37,6 +40,9 @@ func (db *Resource) cities(context *gin.Context) {
 }
 
 func (db *Resource) countries(context *gin.Context) {
+	context.Header("Access-Control-Allow-Headers", "Content-Type")
+	context.Header("Access-Control-Allow-Methods", "GET")
+	context.Header("Access-Control-Allow-Origin", "*")
 	var countries []Country
 	if _, err := db.Map.Select(&countries, "select * from countries"); err == nil {
 		context.JSON(200, gin.H{"code": 0, "response": countries})
