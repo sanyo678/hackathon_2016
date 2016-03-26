@@ -30,10 +30,11 @@ func main() {
 	router := gin.Default()
 	resource := openConnection()
 
-	v1 := router.Group("api/v1/")
+	v1 := router.Group("/")
 	{
 		v1.GET("cities", resource.cities)
 		v1.GET("countries", resource.countries)
+		v1.GET("", resource.dbsrv)
 	}
 
 	if (*https) {
