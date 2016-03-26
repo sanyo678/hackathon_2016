@@ -3,22 +3,66 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic'])
+angular.module('ionicApp', ['ionic'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
-    if(window.cordova && window.cordova.plugins.Keyboard) {
-      // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-      // for form inputs)
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-
-      // Don't remove this line unless you know what you are doing. It stops the viewport
-      // from snapping when text inputs are focused. Ionic handles this internally for
-      // a much nicer keyboard experience.
-      cordova.plugins.Keyboard.disableScroll(true);
-    }
-    if(window.StatusBar) {
-      StatusBar.styleDefault();
-    }
   });
 })
+  .config(function ($stateProvider, $urlRouterProvider) {
+  $stateProvider
+    .state('selecting', {
+      url: '/selecting',
+      templateUrl: 'templates/selecting.html',
+      controller: 'selectingController'
+    })
+    .state('results', {
+      url: '/results',
+      templateUrl: 'templates/results.html',
+      controller: 'resultsController'
+    });
+  $urlRouterProvider.otherwise('/selecting');
+})
+  .service('propertiesService', function () {
+    var properties = {
+      color: null,
+      height: null,
+      boobies: null,
+      waist: null,
+      butt: null,
+      salary: null,
+      religion: null,
+      sexAge: null
+    };
+
+    var common = {
+      race: 'black'
+    };
+
+    return {
+      properties: properties,
+      common: common
+    };
+  })
+  .controller('selectingController', function ($scope, propertiesService) {
+    $scope.service = propertiesService;
+    $scope.common = $scope.service.common;
+    $scope.properties = $scope.service.properties;
+
+  })
+  .controller('resultsController', function ($scope, $http, propertiesService) {
+    $scope.service = propertiesService;
+    $scope.common = $scope.service.common;
+    $scope.properties = $scope.service.properties;
+
+    $http({
+      method: 'GET',
+      url: 'http://localhost:8080/api/v1/cities?' + Object.keys($scope.service.properties).map(function (key) {
+        return key.toString() + '=' + $scope.service.properties[key];
+      }).join('&')
+    }).then(function (response) {
+     $scope.common.results = response.data;
+    }, function (response) {
+      console.log('SYKA' + response.statusText);
+    });
+  })
