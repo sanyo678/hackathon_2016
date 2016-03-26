@@ -84,8 +84,9 @@ angular.module('ionicApp', ['ionic'])
     $scope.resultsReady = false;
 
     $scope.goToMap = function (item) {
-      $scope.common.latitude = item[latitude];
-      $scope.common.longitude = item[longitude];
+      $scope.common.name = item.name;
+      $scope.common.latitude = item.latitude;
+      $scope.common.longitude = item.longitude;
     }
 
     $http({
@@ -94,16 +95,50 @@ angular.module('ionicApp', ['ionic'])
         return key.toString() + '=' + $scope.service.properties[key];
       }).join('&')
     }).then(function (response) {
-      if (response.data['code'] != 0) {
-        console.log('SYKA' + response.data['error']);
+      if (response.data.code != 0) {
+        console.log('SYKA' + response.data.error);
       } else {
         $scope.resultsReady = true;
-        $scope.common.results = response.data['response'];
+        $scope.common.results = response.data.response;
       }
     }, function (response) {
       console.log('SYKA' + response.statusText);
     });
   })
-  .controller('mapController', function ($scope, propertiesService) {
+  .controller('mapController', function ($scope, $compile, propertiesService) {
+    $scope.service = propertiesService;
+    $scope.common = $scope.service.common;
+
+
+    var myLatlng = new google.maps.LatLng($scope.common.latitude, $scope.common.longitude);
+
+    var mapOptions = {
+      center: myLatlng,
+      zoom: 16,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
+    var map = new google.maps.Map(document.getElementById("map"),
+      mapOptions);
+
+
+    var contentString = "<div><a ng-click='clickTest()'>" + $scope.common.name + "</a></div>";
+    var compiled = $compile(contentString)($scope);
+
+    var infowindow = new google.maps.InfoWindow({
+      content: compiled[0]
+    });
+
+    var marker = new google.maps.Marker({
+      position: myLatlng,
+      map: map,
+      title: $scope.common.name
+    });
+
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.open(map, marker);
+    });
+
+    $scope.map = map;
 
   })
