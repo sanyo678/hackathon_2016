@@ -16,6 +16,11 @@ angular.module('ionicApp', ['ionic'])
       templateUrl: 'templates/selecting.html',
       controller: 'selectingController'
     })
+    .state('map', {
+      url: '/map',
+      templateUrl: 'templates/map.html',
+      controller: 'mapController'
+    })
     .state('results', {
       url: '/results',
       templateUrl: 'templates/results.html',
@@ -78,9 +83,14 @@ angular.module('ionicApp', ['ionic'])
 
     $scope.resultsReady = false;
 
+    $scope.goToMap = function (item) {
+      $scope.common.latitude = item[latitude];
+      $scope.common.longitude = item[longitude];
+    }
+
     $http({
       method: 'GET',
-      url: 'http://localhost:8080/api/v1/countries?' + Object.keys($scope.service.properties).map(function (key) {
+      url: 'http://localhost:8080/api/v1/cities?' + Object.keys($scope.service.properties).map(function (key) {
         return key.toString() + '=' + $scope.service.properties[key];
       }).join('&')
     }).then(function (response) {
@@ -93,7 +103,7 @@ angular.module('ionicApp', ['ionic'])
     }, function (response) {
       console.log('SYKA' + response.statusText);
     });
-    
-    
+  })
+  .controller('mapController', function ($scope, propertiesService) {
 
   })

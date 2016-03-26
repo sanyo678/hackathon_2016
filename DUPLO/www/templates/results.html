@@ -9,8 +9,8 @@
 
         <ion-item ng-repeat="item in common.results"
                   item="item"
-                  href="#/item/{{item.id}}" class="item-remove-animate">
-          {{item.name}} {{ common.result }}
+                  href="#/map" class="item-remove-animate" ng-click="goToMap(item)">
+          {{item.name}}
         </ion-item>
 
       </ion-list>
